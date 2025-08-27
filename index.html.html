@@ -20,7 +20,7 @@
         }
         
         .container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
             background: white;
             border-radius: 10px;
@@ -70,7 +70,11 @@
             color: white;
         }
         
-        #estoque-btn.active, #farmacia-btn.active, #outros-btn.active {
+        #estoque-btn.active {
+            background: #27ae60;
+        }
+        
+        #farmacia-btn.active, #outros-btn.active {
             background: #95a5a6;
         }
         
@@ -85,6 +89,10 @@
             margin-bottom: 15px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
             border-left: 4px solid #3498db;
+        }
+        
+        .estoque .process-step {
+            border-left: 4px solid #27ae60;
         }
         
         .construction .process-step {
@@ -123,6 +131,10 @@
             font-size: 14px;
         }
         
+        .estoque .step-number {
+            background: #27ae60;
+        }
+        
         .construction .step-number {
             background: #95a5a6;
         }
@@ -133,6 +145,11 @@
             border-radius: 8px;
             margin: 25px 0;
             border-left: 4px solid #2980b9;
+        }
+        
+        .estoque-instructions {
+            background: #eafaf1;
+            border-left: 4px solid #27ae60;
         }
         
         .construction-instructions {
@@ -174,6 +191,16 @@
             font-size: 14px;
         }
         
+        .category-title {
+            background-color: #2c3e50;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 6px;
+            margin: 20px 0 15px 0;
+            font-size: 16px;
+            font-weight: 600;
+        }
+        
         footer {
             text-align: center;
             margin-top: 25px;
@@ -204,7 +231,7 @@
         </div>
         
         <div class="process-container" id="process-container">
-            <!-- Compras Content -->
+            <!-- Conteúdo inicial de Compras -->
             <div class="process-step">
                 <h3><span class="step-number">1</span>Solicitação de Compras</h3>
                 <div class="menu-path">Suprimentos -> Compras -> Solicitações de Compra -> Gerar SC</div>
@@ -245,7 +272,7 @@
     </div>
     
     <footer>
-        <p>Organizador de Menus AGHuse &copy; 2025 HMA</p>
+        <p>Organizador de Menus &copy; 2023</p>
     </footer>
 
     <script>
@@ -324,13 +351,132 @@
             estoque: {
                 steps: [
                     {
-                        title: "Módulo em Construção",
-                        path: "Em breve disponível",
-                        description: "Estamos trabalhando para disponibilizar este módulo em breve."
+                        category: "Cadastro de Almoxarifados",
+                        title: "Criar Almoxarifados",
+                        path: "Suprimentos -> Estoque -> Cadastros Básicos -> Almoxarifados -> Manter Almoxarifados",
+                        description: "Criação e configuração de almoxarifados no sistema."
+                    },
+                    {
+                        category: "Cadastro de Almoxarifados",
+                        title: "Habilitar Transferências entre Almoxarifados",
+                        path: "Suprimentos -> Estoque -> Cadastros Básicos -> Almoxarifados -> Manter Almoxarifado Transferências",
+                        description: "Configuração para permitir transferências entre diferentes almoxarifados."
+                    },
+                    {
+                        category: "Cadastro de Fornecedores e Marcas",
+                        title: "Cadastro de Fornecedores",
+                        path: "Estoque -> Cadastros Básicos -> Fornecedores -> Manter Fornecedores",
+                        description: "Cadastro de fornecedores no sistema de estoque."
+                    },
+                    {
+                        category: "Cadastro de Fornecedores e Marcas",
+                        title: "Cadastro de Marcas Comerciais",
+                        path: "Estoque -> Cadastros Básicos -> Marcas Comerciais",
+                        description: "Registro de marcas comerciais disponíveis no sistema."
+                    },
+                    {
+                        category: "Cadastro de Fornecedores e Marcas",
+                        title: "Marcas Comerciais dos Fornecedores",
+                        path: "Suprimentos -> Estoque -> Cadastros Básicos -> Fornecedores -> Marcas Comerciais do Fornecedores",
+                        description: "Associação de marcas comerciais aos fornecedores correspondentes."
+                    },
+                    {
+                        category: "Cadastro de Fornecedores e Marcas",
+                        title: "Materiais do Fornecedor",
+                        path: "Suprimentos -> Estoque -> Cadastros Básicos -> Materiais -> Materiais do Fornecedor",
+                        description: "Cadastro de materiais específicos fornecidos por cada fornecedor."
+                    },
+                    {
+                        category: "Cadastro de Fornecedores e Marcas",
+                        title: "Gerar Parecer Técnico",
+                        path: "Suprimentos -> Compras -> Pareceres Técnicos -> Gerar Parecer Técnico",
+                        description: "Emissão de parecer técnico para materiais específicos."
+                    },
+                    {
+                        category: "Cadastro de Materiais",
+                        title: "Cadastro de Materiais",
+                        path: "Estoque -> Cadastros Básicos -> Materiais -> Manter Materiais",
+                        description: "Cadastro de todos os materiais no sistema de estoque."
+                    },
+                    {
+                        category: "Controle de Estoque",
+                        title: "Cadastro de Locais de Estoque",
+                        path: "Estoque -> Controle de estoque -> Manter Estoque Almoxarifado",
+                        description: "Definição de locais (setores) onde os produtos podem ser armazenados ou transferidos."
+                    },
+                    {
+                        category: "Controle de Estoque",
+                        title: "Inclusão Manual de Estoque",
+                        path: "Suprimentos -> Estoque -> Movimentação Estoque -> Inclusão Saldo Estoque",
+                        description: "Inclusão manual de saldo de estoque para produtos (realizar apenas uma vez por item)."
+                    },
+                    {
+                        category: "Controle de Estoque",
+                        title: "Consulta de Saldo de Estoque",
+                        path: "Suprimentos -> Estoque -> Consultas -> Estoque Geral / Estoque Almoxarifado",
+                        description: "Consulta de saldo de estoque por almoxarifado ou visão geral."
+                    },
+                    {
+                        category: "Movimentação de Estoque",
+                        title: "Recebimento de Nota Fiscal",
+                        path: "Suprimentos -> Estoque -> Almoxarifado -> Recebimento -> Recebimento",
+                        description: "Registro de entrada de notas fiscais no sistema."
+                    },
+                    {
+                        category: "Movimentação de Estoque",
+                        title: "Desbloqueio de Material",
+                        path: "Suprimentos -> Estoque -> Movimentação Estoque -> Bloqueio Desbloqueio",
+                        description: "Desbloqueio de materiais após entrada ou em casos especiais (quebrados, empréstimos)."
+                    },
+                    {
+                        category: "Movimentação de Estoque",
+                        title: "Gerar Requisição de Materiais (RM)",
+                        path: "Suprimentos -> Estoque -> Movimentação Estoque -> Requisição Materiais -> Gerar / Alterar RM",
+                        description: "Criação de requisições de materiais para atendimento às necessidades dos setores."
+                    },
+                    {
+                        category: "Movimentação de Estoque",
+                        title: "Efetivar Autorização da RM",
+                        path: "Suprimentos -> Estoque -> Movimentação Estoque -> Requisição Materiais -> Efetivar - Almoxarifado RM",
+                        description: "Efetivação e autorização das requisições de materiais pelo almoxarifado."
+                    },
+                    {
+                        category: "Movimentação de Estoque",
+                        title: "Transferências entre Almoxarifados",
+                        path: "Suprimentos -> Estoque -> Movimentação Estoque -> Transferências -> TRF Automática / TRF Eventual",
+                        description: "Processo de transferência de materiais entre almoxarifados."
+                    },
+                    {
+                        category: "Ajustes e Inventário",
+                        title: "Contagem para Inventário",
+                        path: "Suprimentos -> Estoque -> Relatórios -> Eventuais -> Contagem de Estoque para Inventário",
+                        description: "Preparação e realização de contagem de estoque para inventário."
+                    },
+                    {
+                        category: "Ajustes e Inventário",
+                        title: "Ajuste de Estoque",
+                        path: "Suprimentos -> Estoque -> Movimentação Estoque -> Ajustes -> Ajuste de Estoque",
+                        description: "Realização de ajustes de saldo de estoque quando necessário."
                     }
                 ],
-                instructions: [],
-                construction: true
+                instructions: [
+                    "Cadastro de Almoxarifados: Configure os almoxarifados através do menu 'Suprimentos -> Estoque -> Cadastros Básicos -> Almoxarifados -> Manter Almoxarifados'.",
+                    "Habilitar Transferências: Permita transferências entre almoxarifados em 'Suprimentos -> Estoque -> Cadastros Básicos -> Almoxarifados -> Manter Almoxarifado Transferências'.",
+                    "Cadastro de Fornecedores: Registre fornecedores em 'Estoque -> Cadastros Básicos -> Fornecedores -> Manter Fornecedores'.",
+                    "Marcas Comerciais: Cadastre marcas em 'Estoque -> Cadastros Básicos -> Marcas Comerciais' e associe aos fornecedores em 'Suprimentos -> Estoque -> Cadastros Básicos -> Fornecedores -> Marcas Comerciais do Fornecedores'.",
+                    "Materiais por Fornecedor: Relacione materiais específicos de cada fornecedor em 'Suprimentos -> Estoque -> Cadastros Básicos -> Materiais -> Materiais do Fornecedor'.",
+                    "Parecer Técnico: Emita pareceres técnicos em 'Suprimentos -> Compras -> Pareceres Técnicos -> Gerar Parecer Técnico'.",
+                    "Cadastro de Materiais: Registre todos os materiais em 'Estoque -> Cadastros Básicos -> Materiais -> Manter Materiais'.",
+                    "Locais de Estoque: Defina os locais de armazenamento em 'Estoque -> Controle de estoque -> Manter Estoque Almoxarifado'.",
+                    "Inclusão de Saldo: Adicione saldo inicial manualmente em 'Suprimentos -> Estoque -> Movimentação Estoque -> Inclusão Saldo Estoque' (apenas uma vez por item).",
+                    "Consultas: Verifique saldos em 'Suprimentos -> Estoque -> Consultas -> Estoque Geral' ou 'Estoque Almoxarifado'.",
+                    "Recebimento NF: Registre entrada de notas fiscais em 'Suprimentos -> Estoque -> Almoxarifado -> Recebimento -> Recebimento'.",
+                    "Desbloqueio: Desbloqueie materiais quando necessário em 'Suprimentos -> Estoque -> Movimentação Estoque -> Bloqueio Desbloqueio'.",
+                    "Requisições: Crie RMs em 'Suprimentos -> Estoque -> Movimentação Estoque -> Requisição Materiais -> Gerar / Alterar RM' e efetive em 'Suprimentos -> Estoque -> Movimentação Estoque -> Requisição Materiais -> Efetivar - Almoxarifado RM'.",
+                    "Transferências: Realize transferências entre almoxarifados em 'Suprimentos -> Estoque -> Movimentação Estoque -> Transferências -> TRF Automática / TRF Eventual'.",
+                    "Inventário: Prepare contagens em 'Suprimentos -> Estoque -> Relatórios -> Eventuais -> Contagem de Estoque para Inventário' e faça ajustes em 'Suprimentos -> Estoque -> Movimentação Estoque -> Ajustes -> Ajuste de Estoque'."
+                ],
+                construction: false
             },
             farmacia: {
                 steps: [
@@ -399,11 +545,32 @@
                     <div class="construction-detail">Em breve teremos todas as informações disponíveis para este módulo</div>
                 `;
             } else {
+                // Remover classe construction se existir
                 processContainer.classList.remove('construction');
-                instructions.className = 'instructions';
+                
+                // Adicionar classe específica do módulo
+                if (module === 'estoque') {
+                    processContainer.classList.add('estoque');
+                    instructions.className = 'instructions estoque-instructions';
+                } else {
+                    processContainer.classList.remove('estoque');
+                    instructions.className = 'instructions';
+                }
+                
+                // Variável para controlar a categoria atual
+                let currentCategory = '';
                 
                 // Adicionar os passos do módulo selecionado
                 modulesData[module].steps.forEach((step, index) => {
+                    // Verificar se é uma nova categoria
+                    if (step.category && step.category !== currentCategory) {
+                        currentCategory = step.category;
+                        const categoryElement = document.createElement('div');
+                        categoryElement.className = 'category-title';
+                        categoryElement.textContent = currentCategory;
+                        processContainer.appendChild(categoryElement);
+                    }
+                    
                     const stepElement = document.createElement('div');
                     stepElement.className = 'process-step';
                     stepElement.innerHTML = `
