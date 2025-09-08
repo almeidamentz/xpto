@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Organizador de Menus</title>
+    <title>Organizador de Menus - Módulos Compras e Estoque</title>
     <style>
         * {
             box-sizing: border-box;
@@ -95,10 +95,9 @@
             border-left: 4px solid #27ae60;
         }
         
-        .construction .process-step {
-            border-left: 4px solid #95a5a6;
-            text-align: center;
-            padding: 40px 20px;
+        .process-step.special {
+            border-left: 4px solid #e74c3c;
+            background: #fffafa;
         }
         
         .process-step h3 {
@@ -135,8 +134,8 @@
             background: #27ae60;
         }
         
-        .construction .step-number {
-            background: #95a5a6;
+        .process-step.special .step-number {
+            background: #e74c3c;
         }
         
         .instructions {
@@ -152,13 +151,6 @@
             border-left: 4px solid #27ae60;
         }
         
-        .construction-instructions {
-            background: #f4f6f7;
-            border-left: 4px solid #95a5a6;
-            text-align: center;
-            padding: 30px;
-        }
-        
         .instructions h2 {
             color: #2c3e50;
             margin-bottom: 12px;
@@ -171,6 +163,51 @@
         
         .instructions li {
             margin-bottom: 10px;
+        }
+        
+        .highlight {
+            background-color: #ffeaa7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+            color: #d35400;
+            border: 1px solid #fdcb6e;
+        }
+        
+        .sub-steps {
+            margin-top: 15px;
+            padding-left: 20px;
+            border-left: 3px solid #3498db;
+        }
+        
+        .sub-step {
+            margin-bottom: 10px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 6px;
+        }
+        
+        .sub-step-number {
+            display: inline-block;
+            width: 22px;
+            height: 22px;
+            background: #3498db;
+            color: white;
+            text-align: center;
+            line-height: 22px;
+            border-radius: 50%;
+            margin-right: 8px;
+            font-size: 12px;
+        }
+        
+        .category-title {
+            background-color: #2c3e50;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 6px;
+            margin: 20px 0 15px 0;
+            font-size: 16px;
+            font-weight: 600;
         }
         
         .construction-icon {
@@ -191,37 +228,11 @@
             font-size: 14px;
         }
         
-        .category-title {
-            background-color: #2c3e50;
-            color: white;
-            padding: 10px 15px;
-            border-radius: 6px;
-            margin: 20px 0 15px 0;
-            font-size: 16px;
-            font-weight: 600;
-        }
-        
         footer {
             text-align: center;
             margin-top: 25px;
             color: #7f8c8d;
             font-size: 14px;
-        }
-        
-        /* Novo estilo para destacar termos importantes */
-        .highlight {
-            font-weight: 700;
-            color: #2980b9;
-            background-color: #f1f8ff;
-            padding: 2px 6px;
-            border-radius: 4px;
-            border: 1px solid #d6e6f5;
-        }
-        
-        .estoque .highlight {
-            color: #27ae60;
-            background-color: #f1f9f4;
-            border-color: #d6efe2;
         }
         
         @media (max-width: 600px) {
@@ -247,43 +258,11 @@
         </div>
         
         <div class="process-container" id="process-container">
-            <!-- Conteúdo inicial de Compras -->
-            <div class="process-step">
-                <h3><span class="step-number">1</span>Solicitação de Compras</h3>
-                <div class="menu-path">Suprimentos -> Compras -> Solicitações de Compra -> Gerar SC</div>
-                <p>Primeiro passo para iniciar o processo de compras, onde a necessidade de aquisição é formalizada.</p>
-            </div>
-            
-            <div class="process-step">
-                <h3><span class="step-number">2</span>Aprovação de Solicitação de Compras</h3>
-                <div class="menu-path">Suprimentos -> Compras -> Solicitações de Compra -> Autorizar SC</div>
-                <p>Etapa de aprovação da solicitação por parte dos responsáveis autorizados.</p>
-            </div>
-            
-            <div class="process-step">
-                <h3><span class="step-number">3</span>Abertura de PAC</h3>
-                <div class="menu-path">Suprimentos -> Compras -> PAC - Processo Compras -> Gerar PAC</div>
-                <p>Criação do Processo Administrativo de Compras para formalizar a aquisição perante as normas estabelecidas.</p>
-            </div>
-            
-            <div class="process-step">
-                <h3><span class="step-number">4</span>Documento PDF para Cotação</h3>
-                <div class="menu-path">Suprimentos -> Compras -> PAC - Processo Compras -> Cotar Preço de Materiais</div>
-                <p>Geração de documento PDF que pode ser enviado ao fornecedor para cotação de produtos.</p>
-            </div>
+            <!-- Conteúdo será preenchido via JavaScript -->
         </div>
         
         <div class="instructions" id="instructions">
-            <h2>Passo a Passo para o Processo de Compras</h2>
-            <ol>
-                <li><strong>Solicitação de Compra:</strong> Acesse o menu "Suprimentos -> Compras -> Solicitações de Compra -> Gerar SC" para criar uma nova solicitação de compra.</li>
-                <li><strong>Preencher informações:</strong> Complete todos os campos obrigatórios com informações detalhadas sobre o item ou serviço necessário.</li>
-                <li><strong>Submeter para aprovação:</strong> Após preencher todas as informações, submeta a solicitação para o fluxo de aprovação.</li>
-                <li><strong>Aprovação:</strong> Os aprovadores devem acessar "Suprimentos -> Compras -> Solicitações de Compra -> Autorizar SC" para analisar e aprovar/reprovar a solicitação.</li>
-                <li><strong>Criação do PAC:</strong> Após aprovada, acesse "Suprimentos -> Compras -> PAC - Processo Compras -> Gerar PAC" para dar início ao processo administrativo de compras.</li>
-                <li><strong>Documento de Cotação:</strong> Para solicitar cotações de fornecedores, acesse "Suprimentos -> Compras -> PAC - Processo Compras -> Cotar Preço de Materiais" para gerar o documento PDF.</li>
-                <li><strong>Acompanhamento:</strong> Acompanhe o status do processo através dos menus correspondentes em cada etapa.</li>
-            </ol>
+            <!-- Conteúdo será preenchido via JavaScript -->
         </div>
     </div>
     
@@ -314,7 +293,7 @@
                     {
                         title: "Documento PDF para Cotação",
                         path: "Suprimentos -> Compras -> PAC - Processo Compras -> Cotar Preço de Materiais",
-                        description: "Geração de documento PDF que pode é enviado ao fornecedor para cotação de produtos."
+                        description: "Geração de documento PDF que pode ser enviado ao fornecedor para cotação de produtos."
                     },
                     {
                         title: "Cadastrar Propostas",
@@ -339,7 +318,13 @@
                     {
                         title: "Planejar Programação de Entrega",
                         path: "Suprimentos -> Compras -> AF - Autoriz Fornecimento -> Programação de Entregas -> Planejamento - Ger Progr",
-                        description: "Definição do cronograma de entregas através de <span class='highlight'>Programar Manual</span>, definição de <span class='highlight'>Parcelas a Liberar</span> e confirmação com <span class='highlight'>Liberar Entrega</span>. Após liberação, retornar a <span class='highlight'>Consultar/Alterar AF</span>."
+                        description: "Definição do cronograma de entregas através de <span class='highlight'>Programar Manual</span>, definição de <span class='highlight'>Parcelas a Liberar</span> e confirmação com <span class='highlight'>Liberar Entrega</span>.",
+                        special: true,
+                        subSteps: [
+                            "Programar Manual - Definir as datas e quantidades de entrega",
+                            "Parcelas a Liberar - Especificar as parcelas que serão liberadas para entrega",
+                            "Liberar Entrega - Confirmar e liberar a programação de entrega"
+                        ]
                     },
                     {
                         title: "Assinatura do Ordenador de Despesas",
@@ -358,7 +343,7 @@
                     "Julgar Propostas: Avalie as propostas em 'Suprimentos -> Compras -> Propostas -> Julgar Propostas' para selecionar a melhor opção.",
                     "Gerar AF: Emita a Autorização de Fornecimento em 'Suprimentos -> Compras -> AF - Autoriz Fornecimento -> Gerar AF'.",
                     "Liberar AF para Assinatura: Prepare o documento para assinatura em 'Compras -> AF - Autoriz Fornecimento -> Consultar / Alterar AF'.",
-                    "Planejar Programação de Entrega: Defina o cronograma em 'Suprimentos -> Compras -> AF - Autoriz Fornecimento -> Programação de Entregas -> Planejamento - Ger Progr'. Execute as etapas de <span class='highlight'>Programar Manual</span>, definir <span class='highlight'>Parcelas a Liberar</span> e finalize com <span class='highlight'>Liberar Entrega</span>. Após a liberação, retorne a '<span class='highlight'>Compras -> AF - Autoriz Fornecimento -> Consultar / Alterar AF</span>'.",
+                    "Planejar Programação de Entrega: Defina o cronograma em 'Suprimentos -> Compras -> AF - Autoriz Fornecimento -> Programação de Entregas -> Planejamento - Ger Progr'. Execute as etapas de <span class='highlight'>Programar Manual</span>, definir <span class='highlight'>Parcelas a Liberar</span> e finalize com <span class='highlight'>Liberar Entrega</span>.",
                     "Assinatura do Ordenador: Finalize o processo com a assinatura em 'Suprimentos -> Compras -> AF - Autoriz Fornecimento -> Programação de Entregas -> Ordenador - Assinatura'.",
                     "Acompanhamento: Acompanhe o status do processo através dos menus correspondentes em cada etapa."
                 ],
@@ -418,7 +403,7 @@
                         category: "Controle de Estoque",
                         title: "Cadastro de Locais de Estoque",
                         path: "Estoque -> Controle de estoque -> Manter Estoque Almoxarifado",
-                        description: "Definição de locais (setores) onde os produtos podem ser armazenados ou transferidos."
+                        description: "Definição de locais (setores) onde os produtos podem be armazenados ou transferidos."
                     },
                     {
                         category: "Controle de Estoque",
@@ -542,7 +527,7 @@
             
             // Verificar se é um módulo em construção
             if (modulesData[module].construction) {
-                processContainer.classList.add('construction');
+                processContainer.classList.remove('estoque');
                 
                 const stepElement = document.createElement('div');
                 stepElement.className = 'process-step';
@@ -561,9 +546,6 @@
                     <div class="construction-detail">Em breve teremos todas as informações disponíveis para este módulo</div>
                 `;
             } else {
-                // Remover classe construction se existir
-                processContainer.classList.remove('construction');
-                
                 // Adicionar classe específica do módulo
                 if (module === 'estoque') {
                     processContainer.classList.add('estoque');
@@ -588,12 +570,28 @@
                     }
                     
                     const stepElement = document.createElement('div');
-                    stepElement.className = 'process-step';
-                    stepElement.innerHTML = `
+                    stepElement.className = step.special ? 'process-step special' : 'process-step';
+                    
+                    let stepContent = `
                         <h3><span class="step-number">${index + 1}</span>${step.title}</h3>
                         <div class="menu-path">${step.path}</div>
                         <p>${step.description}</p>
                     `;
+                    
+                    // Adicionar subetapas se existirem
+                    if (step.subSteps && step.subSteps.length > 0) {
+                        stepContent += `<div class="sub-steps">`;
+                        step.subSteps.forEach((subStep, subIndex) => {
+                            stepContent += `
+                                <div class="sub-step">
+                                    <span class="sub-step-number">${subIndex + 1}</span>${subStep}
+                                </div>
+                            `;
+                        });
+                        stepContent += `</div>`;
+                    }
+                    
+                    stepElement.innerHTML = stepContent;
                     processContainer.appendChild(stepElement);
                 });
                 
