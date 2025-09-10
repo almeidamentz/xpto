@@ -214,9 +214,32 @@
             color: white;
             padding: 10px 15px;
             border-radius: 6px;
-            margin: 20px 0 15px 0;
+            margin: 20px 0 0 0;
             font-size: 16px;
             font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .category-title::after {
+            content: '+';
+            font-size: 18px;
+        }
+        
+        .category-title.expanded::after {
+            content: '−';
+        }
+        
+        .category-content {
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            max-height: 0;
+        }
+        
+        .category-content.expanded {
+            max-height: 1000px;
         }
         
         .construction-icon {
@@ -285,46 +308,55 @@
             compras: {
                 steps: [
                     {
+                        category: "Processo de Solicitação",
                         title: "Solicitação de Compras",
                         path: "Suprimentos -> Compras -> Solicitações de Compra -> Gerar SC",
                         description: "Primeiro passo para iniciar o processo de compras, onde a necessidade de aquisição é formalizada."
                     },
                     {
+                        category: "Processo de Solicitação",
                         title: "Aprovação de Solicitação de Compras",
                         path: "Suprimentos -> Compras -> Solicitações de Compra -> Autorizar SC",
                         description: "Etapa de aprovação da solicitação por parte dos responsáveis autorizados."
                     },
                     {
+                        category: "Processo de Aquisição",
                         title: "Abertura de PAC",
                         path: "Suprimentos -> Compras -> PAC - Processo Compras -> Gerar PAC",
                         description: "Criação do Processo Administrativo de Compras para formalizar a aquisição perante as normas estabelecidas."
                     },
                     {
+                        category: "Processo de Aquisição",
                         title: "Documento PDF para Cotação",
                         path: "Suprimentos -> Compras -> PAC - Processo Compras -> Cotar Preço de Materiais",
                         description: "Geração de documento PDF que pode ser enviado ao fornecedor para cotação de produtos."
                     },
                     {
+                        category: "Processo de Aquisição",
                         title: "Cadastrar Propostas",
                         path: "Suprimentos -> Compras -> Propostas -> Cadastrar / Consultar Propostas",
                         description: "Registro das propostas recebidas dos fornecedores para análise comparativa."
                     },
                     {
+                        category: "Processo de Aquisição",
                         title: "Julgar Propostas",
                         path: "Suprimentos -> Compras -> Propostas -> Julgar Propostas",
                         description: "Avaliação técnica e econômica das propostas recebidas para seleção da melhor opção."
                     },
                     {
+                        category: "Processo de Aquisição",
                         title: "Gerar AF",
                         path: "Suprimentos -> Compras -> AF - Autoriz Fornecimento -> Gerar AF",
                         description: "Emissão da Autorização de Fornecimento para o fornecedor selecionado."
                     },
                     {
+                        category: "Processo de Aquisição",
                         title: "Liberar AF para Assinatura",
                         path: "Compras -> AF - Autoriz Fornecimento -> Consultar / Alterar AF",
                         description: "Preparação do documento para o processo de assinatura pelos responsáveis."
                     },
                     {
+                        category: "Programação de Entrega",
                         title: "Planejar Programação de Entrega",
                         path: "Suprimentos -> Compras -> AF - Autoriz Fornecimento -> Programação de Entregas -> Planejamento - Ger Progr",
                         description: "Definição do cronograma de entregas através de <span class='highlight'>Programar Manual</span>, definição de <span class='highlight'>Parcelas a Liberar</span> e confirmação com <span class='highlight'>Liberar Entrega</span>.",
@@ -336,9 +368,10 @@
                         ]
                     },
                     {
+                        category: "Programação de Entrega",
                         title: "Assinatura do Ordenador de Despesas",
                         path: "Suprimentos -> Compras -> AF - Autoriz Fornecimento -> Programação de Entregas -> Ordenador - Assinatura",
-                        description: "Finalização do processo com a assinatura do diretor da unidade hospitalar ou diretor administrativo/financeiro."
+                        description: "Finalização del proceso con la firma del director de la unidad hospitalaria o del director administrativo/financiero."
                     }
                 ],
                 instructions: [
@@ -569,44 +602,63 @@
                     instructions.className = 'instructions';
                 }
                 
-                // Variável para controlar a categoria atual
-                let currentCategory = '';
+                // Agrupar passos por categoria
+                const categorizedSteps = {};
+                modulesData[module].steps.forEach(step => {
+                    if (!categorizedSteps[step.category]) {
+                        categorizedSteps[step.category] = [];
+                    }
+                    categorizedSteps[step.category].push(step);
+                });
                 
-                // Adicionar os passos do módulo selecionado
-                modulesData[module].steps.forEach((step, index) => {
-                    // Verificar se é uma nova categoria
-                    if (step.category && step.category !== currentCategory) {
-                        currentCategory = step.category;
-                        const categoryElement = document.createElement('div');
-                        categoryElement.className = 'category-title';
-                        categoryElement.textContent = currentCategory;
-                        processContainer.appendChild(categoryElement);
-                    }
+                // Criar elementos para cada categoria
+                Object.keys(categorizedSteps).forEach(category => {
+                    // Criar o título da categoria
+                    const categoryElement = document.createElement('div');
+                    categoryElement.className = 'category-title';
+                    categoryElement.textContent = category;
                     
-                    const stepElement = document.createElement('div');
-                    stepElement.className = step.special ? 'process-step special' : 'process-step';
+                    // Criar container para o conteúdo da categoria
+                    const categoryContent = document.createElement('div');
+                    categoryContent.className = 'category-content';
                     
-                    let stepContent = `
-                        <h3><span class="step-number">${index + 1}</span>${step.title}</h3>
-                        <div class="menu-path">${step.path}</div>
-                        <p>${step.description}</p>
-                    `;
+                    // Adicionar os passos da categoria
+                    categorizedSteps[category].forEach((step, index) => {
+                        const stepElement = document.createElement('div');
+                        stepElement.className = step.special ? 'process-step special' : 'process-step';
+                        
+                        let stepContent = `
+                            <h3><span class="step-number">${index + 1}</span>${step.title}</h3>
+                            <div class="menu-path">${step.path}</div>
+                            <p>${step.description}</p>
+                        `;
+                        
+                        // Adicionar subetapas se existirem
+                        if (step.subSteps && step.subSteps.length > 0) {
+                            stepContent += `<div class="sub-steps">`;
+                            step.subSteps.forEach((subStep, subIndex) => {
+                                stepContent += `
+                                    <div class="sub-step">
+                                        <span class="sub-step-number">${subIndex + 1}</span>${subStep}
+                                    </div>
+                                `;
+                            });
+                            stepContent += `</div>`;
+                        }
+                        
+                        stepElement.innerHTML = stepContent;
+                        categoryContent.appendChild(stepElement);
+                    });
                     
-                    // Adicionar subetapas se existirem
-                    if (step.subSteps && step.subSteps.length > 0) {
-                        stepContent += `<div class="sub-steps">`;
-                        step.subSteps.forEach((subStep, subIndex) => {
-                            stepContent += `
-                                <div class="sub-step">
-                                    <span class="sub-step-number">${subIndex + 1}</span>${subStep}
-                                </div>
-                            `;
-                        });
-                        stepContent += `</div>`;
-                    }
+                    // Adicionar evento de clique para expandir/recolher
+                    categoryElement.addEventListener('click', function() {
+                        this.classList.toggle('expanded');
+                        categoryContent.classList.toggle('expanded');
+                    });
                     
-                    stepElement.innerHTML = stepContent;
-                    processContainer.appendChild(stepElement);
+                    // Adicionar ao container principal
+                    processContainer.appendChild(categoryElement);
+                    processContainer.appendChild(categoryContent);
                 });
                 
                 // Atualizar as instruções
