@@ -10,6 +10,10 @@
             margin: 0;
             padding: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
         }
         
         body {
@@ -414,6 +418,14 @@
                 text-align: center;
             }
         }
+
+        /* Proteção contra seleção de texto */
+        ::selection {
+            background: transparent;
+        }
+        ::-moz-selection {
+            background: transparent;
+        }
     </style>
 </head>
 <body>
@@ -479,22 +491,85 @@
     </div>
 
     <script>
-        // Credenciais criptografadas usando SHA-256
-        const credentials = {
-            // Usuário: almeida, Senha: 010982
-            username: 'b8c5c8c0e1c4c8e5c8c0e1c4c8e5c8c0e1c4c8e5c8c0e1c4c8e5c8c0e1c4c8e5', // Hash do usuário
-            password: 'a9b9c8d7e6f5a4b3c2d1e0f9a8b7c6d5e4f3a2b1c0d9e8f7a6b5c4d3e2f1a0b9' // Hash da senha
-        };
+        // Proteções contra inspeção (AVISO: Estas proteções são facilmente contornáveis)
+        
+        // Desabilitar clique direito
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            return false;
+        });
 
-        // Função para gerar hash simples (simulação de criptografia)
-        function simpleHash(str) {
-            let hash = 0;
-            for (let i = 0; i < str.length; i++) {
-                const char = str.charCodeAt(i);
-                hash = ((hash << 5) - hash) + char;
-                hash = hash & hash; // Converter para 32bit integer
+        // Desabilitar teclas de desenvolvedor
+        document.addEventListener('keydown', function(e) {
+            // F12
+            if (e.keyCode === 123) {
+                e.preventDefault();
+                return false;
             }
-            return Math.abs(hash).toString(16).padStart(16, '0').repeat(4).substring(0, 64);
+            // Ctrl+Shift+I
+            if (e.ctrlKey && e.shiftKey && e.keyCode === 73) {
+                e.preventDefault();
+                return false;
+            }
+            // Ctrl+Shift+J
+            if (e.ctrlKey && e.shiftKey && e.keyCode === 74) {
+                e.preventDefault();
+                return false;
+            }
+            // Ctrl+U (view source)
+            if (e.ctrlKey && e.keyCode === 85) {
+                e.preventDefault();
+                return false;
+            }
+            // Ctrl+Shift+C
+            if (e.ctrlKey && e.shiftKey && e.keyCode === 67) {
+                e.preventDefault();
+                return false;
+            }
+            // Ctrl+S (save page)
+            if (e.ctrlKey && e.keyCode === 83) {
+                e.preventDefault();
+                return false;
+            }
+        });
+
+        // Detectar ferramentas de desenvolvedor abertas
+        let devtools = {
+            open: false,
+            orientation: null
+        };
+        
+        const threshold = 160;
+        
+        setInterval(function() {
+            if (window.outerHeight - window.innerHeight > threshold || 
+                window.outerWidth - window.innerWidth > threshold) {
+                if (!devtools.open) {
+                    devtools.open = true;
+                    document.body.innerHTML = '<div style="text-align:center;margin-top:50px;font-size:24px;color:#e74c3c;">⚠️ Acesso Negado ⚠️<br><br>Ferramentas de desenvolvedor detectadas.<br>Recarregue a página para continuar.</div>';
+                }
+            } else {
+                devtools.open = false;
+            }
+        }, 500);
+
+        // Desabilitar arrastar e soltar
+        document.addEventListener('dragstart', function(e) {
+            e.preventDefault();
+            return false;
+        });
+
+        // Desabilitar seleção de texto
+        document.addEventListener('selectstart', function(e) {
+            e.preventDefault();
+            return false;
+        });
+
+        // Credenciais ofuscadas (AVISO: Esta não é uma criptografia real)
+        const _0x1a2b = ['YWxtZWlkYQ==', 'MDEwOTgy']; // Base64 ofuscado
+        
+        function _0x3c4d(str) {
+            return atob(str);
         }
 
         // Função de login
@@ -510,8 +585,8 @@
             errorMessage.style.display = 'none';
             successMessage.style.display = 'none';
             
-            // Verificar credenciais (comparação direta para maior segurança)
-            if (username === 'almeida' && password === '010982') {
+            // Verificar credenciais ofuscadas
+            if (username === _0x3c4d(_0x1a2b[0]) && password === _0x3c4d(_0x1a2b[1])) {
                 // Login bem-sucedido
                 successMessage.style.display = 'block';
                 document.getElementById('loggedUser').textContent = username;
@@ -941,6 +1016,16 @@
         if (estoqueBtn) estoqueBtn.addEventListener('click', () => changeModule('estoque'));
         if (farmaciaBtn) farmaciaBtn.addEventListener('click', () => changeModule('farmacia'));
         if (outrosBtn) outrosBtn.addEventListener('click', () => changeModule('outros'));
+
+        // Limpar console periodicamente
+        setInterval(function() {
+            console.clear();
+        }, 1000);
+
+        // Mensagem de aviso no console
+        console.log('%c⚠️ AVISO DE SEGURANÇA ⚠️', 'color: red; font-size: 20px; font-weight: bold;');
+        console.log('%cEste é um sistema protegido. O acesso não autorizado é proibido.', 'color: red; font-size: 14px;');
+        console.log('%cSe você não é um desenvolvedor autorizado, feche esta janela imediatamente.', 'color: red; font-size: 14px;');
     </script>
 </body>
 </html>
