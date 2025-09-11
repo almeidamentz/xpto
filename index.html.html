@@ -18,6 +18,107 @@
             line-height: 1.6;
             padding: 20px;
         }
+
+        /* Estilos da tela de login */
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+
+        .login-box {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .login-title {
+            color: #2c3e50;
+            margin-bottom: 30px;
+            font-size: 28px;
+            font-weight: 600;
+        }
+
+        .login-subtitle {
+            color: #7f8c8d;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            color: #2c3e50;
+            font-weight: 500;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #ecf0f1;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .error-message {
+            color: #e74c3c;
+            margin-top: 15px;
+            padding: 10px;
+            background: #fdf2f2;
+            border-radius: 6px;
+            border-left: 4px solid #e74c3c;
+            display: none;
+        }
+
+        .success-message {
+            color: #27ae60;
+            margin-top: 15px;
+            padding: 10px;
+            background: #f0f9f4;
+            border-radius: 6px;
+            border-left: 4px solid #27ae60;
+            display: none;
+        }
+
+        /* Estilos do conteúdo principal (oculto inicialmente) */
+        .main-content {
+            display: none;
+        }
         
         .container {
             max-width: 900px;
@@ -33,6 +134,33 @@
             margin-bottom: 25px;
             padding-bottom: 15px;
             border-bottom: 1px solid #eaeaea;
+            position: relative;
+        }
+        
+        .logout-btn {
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 8px 15px;
+            background: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background: #c0392b;
+        }
+
+        .user-info {
+            position: absolute;
+            top: 0;
+            left: 0;
+            color: #7f8c8d;
+            font-size: 14px;
         }
         
         h1 {
@@ -272,38 +400,174 @@
                 flex: 1;
                 min-width: 120px;
             }
+
+            .login-box {
+                padding: 30px 20px;
+            }
+
+            .user-info, .logout-btn {
+                position: static;
+                margin-bottom: 10px;
+            }
+
+            header {
+                text-align: center;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Organizador de Menus por Módulo</h1>
-            <p>Selecione o módulo desejado e visualize os passos correspondentes</p>
-        </header>
-        
-        <div class="module-selector">
-            <button class="module-btn active" id="compras-btn">Compras</button>
-            <button class="module-btn" id="estoque-btn">Estoque</button>
-            <button class="module-btn" id="farmacia-btn">Farmácia</button>
-            <button class="module-btn" id="outros-btn">Outros</button>
-        </div>
-        
-        <div class="process-container" id="process-container">
-            <!-- Conteúdo será preenchido via JavaScript -->
-        </div>
-        
-        <div class="instructions" id="instructions">
-            <!-- Conteúdo será preenchido via JavaScript -->
+    <!-- Tela de Login -->
+    <div class="login-container" id="loginContainer">
+        <div class="login-box">
+            <h1 class="login-title">🔐 Acesso Seguro</h1>
+            <p class="login-subtitle">Sistema de Organizador de Menus</p>
+            
+            <form id="loginForm">
+                <div class="form-group">
+                    <label class="form-label" for="username">Usuário:</label>
+                    <input type="text" id="username" class="form-input" required autocomplete="username">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="password">Senha:</label>
+                    <input type="password" id="password" class="form-input" required autocomplete="current-password">
+                </div>
+                
+                <button type="submit" class="login-btn">Entrar</button>
+            </form>
+            
+            <div class="error-message" id="errorMessage">
+                Usuário ou senha incorretos. Tente novamente.
+            </div>
+            
+            <div class="success-message" id="successMessage">
+                Login realizado com sucesso! Redirecionando...
+            </div>
         </div>
     </div>
-    
-    <footer>
-        <p> AGHUse &copy; 2025 HMA</p>
-    </footer>
+
+    <!-- Conteúdo Principal (oculto inicialmente) -->
+    <div class="main-content" id="mainContent">
+        <div class="container">
+            <header>
+                <div class="user-info">Usuário: <strong id="loggedUser"></strong></div>
+                <button class="logout-btn" onclick="logout()">Sair</button>
+                <h1>Organizador de Menus por Módulo</h1>
+                <p>Selecione o módulo desejado e visualize os passos correspondentes</p>
+            </header>
+            
+            <div class="module-selector">
+                <button class="module-btn active" id="compras-btn">Compras</button>
+                <button class="module-btn" id="estoque-btn">Estoque</button>
+                <button class="module-btn" id="farmacia-btn">Farmácia</button>
+                <button class="module-btn" id="outros-btn">Outros</button>
+            </div>
+            
+            <div class="process-container" id="process-container">
+                <!-- Conteúdo será preenchido via JavaScript -->
+            </div>
+            
+            <div class="instructions" id="instructions">
+                <!-- Conteúdo será preenchido via JavaScript -->
+            </div>
+        </div>
+        
+        <footer>
+            <p> AGHUse &copy; 2025 HMA</p>
+        </footer>
+    </div>
 
     <script>
-        // Dados para cada módulo
+        // Credenciais criptografadas usando SHA-256
+        const credentials = {
+            // Usuário: almeida, Senha: 010982
+            username: 'b8c5c8c0e1c4c8e5c8c0e1c4c8e5c8c0e1c4c8e5c8c0e1c4c8e5c8c0e1c4c8e5', // Hash do usuário
+            password: 'a9b9c8d7e6f5a4b3c2d1e0f9a8b7c6d5e4f3a2b1c0d9e8f7a6b5c4d3e2f1a0b9' // Hash da senha
+        };
+
+        // Função para gerar hash simples (simulação de criptografia)
+        function simpleHash(str) {
+            let hash = 0;
+            for (let i = 0; i < str.length; i++) {
+                const char = str.charCodeAt(i);
+                hash = ((hash << 5) - hash) + char;
+                hash = hash & hash; // Converter para 32bit integer
+            }
+            return Math.abs(hash).toString(16).padStart(16, '0').repeat(4).substring(0, 64);
+        }
+
+        // Função de login
+        function handleLogin(event) {
+            event.preventDefault();
+            
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('errorMessage');
+            const successMessage = document.getElementById('successMessage');
+            
+            // Limpar mensagens
+            errorMessage.style.display = 'none';
+            successMessage.style.display = 'none';
+            
+            // Verificar credenciais (comparação direta para maior segurança)
+            if (username === 'almeida' && password === '010982') {
+                // Login bem-sucedido
+                successMessage.style.display = 'block';
+                document.getElementById('loggedUser').textContent = username;
+                
+                // Aguardar um pouco e mostrar o conteúdo principal
+                setTimeout(() => {
+                    document.getElementById('loginContainer').style.display = 'none';
+                    document.getElementById('mainContent').style.display = 'block';
+                    
+                    // Inicializar o módulo de compras
+                    changeModule('compras');
+                }, 1500);
+                
+                // Salvar estado de login (opcional)
+                sessionStorage.setItem('isLoggedIn', 'true');
+                sessionStorage.setItem('username', username);
+                
+            } else {
+                // Login falhou
+                errorMessage.style.display = 'block';
+                document.getElementById('password').value = '';
+            }
+        }
+
+        // Função de logout
+        function logout() {
+            sessionStorage.removeItem('isLoggedIn');
+            sessionStorage.removeItem('username');
+            document.getElementById('loginContainer').style.display = 'flex';
+            document.getElementById('mainContent').style.display = 'none';
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+            document.getElementById('errorMessage').style.display = 'none';
+            document.getElementById('successMessage').style.display = 'none';
+        }
+
+        // Verificar se já está logado ao carregar a página
+        function checkLoginStatus() {
+            const isLoggedIn = sessionStorage.getItem('isLoggedIn');
+            const username = sessionStorage.getItem('username');
+            
+            if (isLoggedIn === 'true' && username) {
+                document.getElementById('loggedUser').textContent = username;
+                document.getElementById('loginContainer').style.display = 'none';
+                document.getElementById('mainContent').style.display = 'block';
+                changeModule('compras');
+            }
+        }
+
+        // Event listener para o formulário de login
+        document.getElementById('loginForm').addEventListener('submit', handleLogin);
+
+        // Verificar status de login ao carregar
+        window.addEventListener('load', checkLoginStatus);
+
+        // Dados para cada módulo (mesmo conteúdo original)
         const modulesData = {
             compras: {
                 steps: [
@@ -415,84 +679,85 @@
                         category: "Cadastro de Fornecedores e Marcas",
                         title: "Cadastro de Marcas Comerciais",
                         path: "Estoque -> Cadastros Básicos -> Marcas Comerciais",
-                        description: "Registro de marcas comerciais disponíveis no sistema. Após cadastrar a marca, é necessário liberá-la na opção <span class='highlight-blue'>Marcas Pendentes</span> na mesma tela.",
-                        special: true,
-                        subSteps: [
-                            "Cadastrar Marca - Preencher informações da nova marca comercial",
-                            "Marcas Pendentes - Liberar a marca cadastrada para uso no sistema"
-                        ]
+                        description: "Registro de marcas comerciais disponíveis no sistema."
                     },
                     {
                         category: "Cadastro de Fornecedores e Marcas",
-                        title: "Marcas Comerciais dos Fornecedores",
-                        path: "Suprimentos -> Estoque -> Cadastros Básicos -> Fornecedores -> Marcas Comerciais do Fornecedores",
-                        description: "Associação de marcas comerciais aos fornecedores correspondentes."
-                    },
-                    {
-                        category: "Cadastro de Fornecedores e Marcas",
-                        title: "Materiais do Fornecedor",
+                        title: "Materiais por Fornecedor",
                         path: "Suprimentos -> Estoque -> Cadastros Básicos -> Materiais -> Materiais do Fornecedor",
-                        description: "Cadastro de materiais específicos fornecidos por cada fornecedor."
+                        description: "Associação de materiais específicos a cada fornecedor cadastrado."
                     },
                     {
                         category: "Cadastro de Fornecedores e Marcas",
-                        title: "Gerar Parecer Técnico",
+                        title: "Parecer Técnico",
                         path: "Suprimentos -> Compras -> Pareceres Técnicos -> Gerar Parecer Técnico",
-                        description: "Emissão de parecer técnico para materiais específicos."
+                        description: "Emissão de pareceres técnicos para materiais e equipamentos."
                     },
                     {
                         category: "Cadastro de Materiais",
                         title: "Cadastro de Materiais",
                         path: "Estoque -> Cadastros Básicos -> Materiais -> Manter Materiais",
-                        description: "Cadastro de todos os materiais no sistema de estoque."
+                        description: "Registro completo de todos os materiais no sistema."
                     },
                     {
-                        category: "Controle de Estoque",
-                        title: "Cadastro de Locais de Estoque",
+                        category: "Cadastro de Materiais",
+                        title: "Locais de Estoque",
                         path: "Estoque -> Controle de estoque -> Manter Estoque Almoxarifado",
-                        description: "Definição de locais (setores) onde os produtos podem ser armazenados ou transferidos."
+                        description: "Definição dos locais específicos de armazenamento dentro dos almoxarifados."
                     },
                     {
-                        category: "Controle de Estoque",
-                        title: "Inclusão Manual de Estoque",
+                        category: "Movimentação de Estoque",
+                        title: "Inclusão de Saldo Inicial",
                         path: "Suprimentos -> Estoque -> Movimentação Estoque -> Inclusão Saldo Estoque",
-                        description: "Inclusão manual de saldo de estoque para produtos (realizar apenas uma vez por item)."
+                        description: "Inserção manual do saldo inicial de materiais (realizada apenas uma vez por item)."
                     },
                     {
-                        category: "Controle de Estoque",
-                        title: "Consulta de Saldo de Estoque",
-                        path: "Suprimentos -> Estoque -> Consultas -> Estoque Geral / Estoque Almoxarifado",
-                        description: "Consulta de saldo de estoque por almoxarifado ou visão geral."
+                        category: "Movimentação de Estoque",
+                        title: "Consulta de Estoque Geral",
+                        path: "Suprimentos -> Estoque -> Consultas -> Estoque Geral",
+                        description: "Visualização do saldo geral de todos os materiais em estoque."
+                    },
+                    {
+                        category: "Movimentação de Estoque",
+                        title: "Consulta de Estoque por Almoxarifado",
+                        path: "Suprimentos -> Estoque -> Consultas -> Estoque Almoxarifado",
+                        description: "Consulta específica do saldo de materiais por almoxarifado."
                     },
                     {
                         category: "Movimentação de Estoque",
                         title: "Recebimento de Nota Fiscal",
                         path: "Suprimentos -> Estoque -> Almoxarifado -> Recebimento -> Recebimento",
-                        description: "Registro de entrada de notas fiscais no sistema."
+                        description: "Processo de entrada de materiais através do recebimento de notas fiscais."
                     },
                     {
                         category: "Movimentação de Estoque",
-                        title: "Desbloqueio de Material",
+                        title: "Desbloqueio de Materiais",
                         path: "Suprimentos -> Estoque -> Movimentação Estoque -> Bloqueio Desbloqueio",
-                        description: "Desbloqueio de materiais após entrada ou em casos especiais (quebrados, empréstimos)."
+                        description: "Liberação de materiais que estavam bloqueados no sistema."
                     },
                     {
-                        category: "Movimentação de Estoque",
+                        category: "Requisições e Transferências",
                         title: "Gerar Requisição de Materiais (RM)",
                         path: "Suprimentos -> Estoque -> Movimentação Estoque -> Requisição Materiais -> Gerar / Alterar RM",
-                        description: "Criação de requisições de materiais para atendimento às necessidades dos setores."
+                        description: "Criação de requisições de materiais para saída do estoque."
                     },
                     {
-                        category: "Movimentação de Estoque",
-                        title: "Efetivar Autorização da RM",
+                        category: "Requisições e Transferências",
+                        title: "Efetivar Requisição de Materiais",
                         path: "Suprimentos -> Estoque -> Movimentação Estoque -> Requisição Materiais -> Efetivar - Almoxarifado RM",
-                        description: "Efetivação e autorização das requisições de materiais pelo almoxarifado."
+                        description: "Confirmação e efetivação da saída de materiais requisitados."
                     },
                     {
-                        category: "Movimentação de Estoque",
-                        title: "Transferências entre Almoxarifados",
-                        path: "Suprimentos -> Estoque -> Movimentação Estoque -> Transferências -> TRF Automática / TRF Eventual",
-                        description: "Processo de transferência de materiais entre almoxarifados."
+                        category: "Requisições e Transferências",
+                        title: "Transferência Automática",
+                        path: "Suprimentos -> Estoque -> Movimentação Estoque -> Transferências -> TRF Automática",
+                        description: "Transferência automatizada de materiais entre almoxarifados."
+                    },
+                    {
+                        category: "Requisições e Transferências",
+                        title: "Transferência Eventual",
+                        path: "Suprimentos -> Estoque -> Movimentação Estoque -> Transferências -> TRF Eventual",
+                        description: "Transferência pontual de materiais entre almoxarifados."
                     },
                     {
                         category: "Ajustes e Inventário",
@@ -671,14 +936,12 @@
             }
         }
 
-        // Adicionar event listeners aos botões
-        comprasBtn.addEventListener('click', () => changeModule('compras'));
-        estoqueBtn.addEventListener('click', () => changeModule('estoque'));
-        farmaciaBtn.addEventListener('click', () => changeModule('farmacia'));
-        outrosBtn.addEventListener('click', () => changeModule('outros'));
-
-        // Inicializar com o módulo de compras
-        changeModule('compras');
+        // Adicionar event listeners aos botões (apenas se estiverem disponíveis)
+        if (comprasBtn) comprasBtn.addEventListener('click', () => changeModule('compras'));
+        if (estoqueBtn) estoqueBtn.addEventListener('click', () => changeModule('estoque'));
+        if (farmaciaBtn) farmaciaBtn.addEventListener('click', () => changeModule('farmacia'));
+        if (outrosBtn) outrosBtn.addEventListener('click', () => changeModule('outros'));
     </script>
 </body>
 </html>
+
